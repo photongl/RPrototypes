@@ -1,0 +1,12 @@
+library('forecast')
+
+# setwd("<your working directory with data here>")
+sensex <- read.csv("BSE_SENSEX_2007-2014.csv")
+nifty <- read.csv("NSE_NIFTY_2007-2014.csv")
+fit_nifty <- arfima(nifty$Close)
+fit_sensex <- arfima(sensex$Close)
+tsdisplay(residuals(fit_nifty))
+tsdisplay(residuals(fit_sensex))
+layout(matrix(c(1,2),2,1))
+plot(forecast(fit_nifty, h=180), lwd=2, col="blue", main="S&P CNX NIFTY")
+plot(forecast(fit_sensex, h=180), lwd=2, col="blue", main="S&P BSE SENSEX")
